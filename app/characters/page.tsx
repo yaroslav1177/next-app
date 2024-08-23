@@ -75,12 +75,12 @@ export default function HomePageClient() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Rick and Morty Characters</h1>
+    <div className="container mx-auto p-4 pt-[100px]">
+      <h1 className="text-2xl font-bold mb-4 text-6xl">Rick and Morty Characters</h1>
       <input
         type="text"
         placeholder="Search characters..."
-        className="w-[300px] p-2 mb-4 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+        className="w-[300px] p-2 mb-4 border text-3xl border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
@@ -91,7 +91,7 @@ export default function HomePageClient() {
       <div className="mb-4 flex space-x-4">
         <select
           onChange={(e) => setStatusFilter(e.target.value || null)}
-          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300 text-3xl cursor-pointer"
           value={statusFilter || ""}
         >
           <option value="">All Statuses</option>
@@ -102,7 +102,7 @@ export default function HomePageClient() {
 
         <select
           onChange={(e) => setSpeciesFilter(e.target.value || null)}
-          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300 text-3xl cursor-pointer"
           value={speciesFilter || ""}
         >
           <option value="">All Species</option>
@@ -120,7 +120,7 @@ export default function HomePageClient() {
 
         <select
           onChange={(e) => setGenderFilter(e.target.value || null)}
-          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300 text-3xl cursor-pointer"
           value={genderFilter || ""}
         >
           <option value="">All Genders</option>
@@ -132,13 +132,13 @@ export default function HomePageClient() {
 
         <button
           onClick={resetFilters}
-          className="p-2 border border-gray-300 rounded bg-[#EDC5AB] hover:bg-[#37745B] hover:text-[#EDC5AB] text-red-700"
+          className="p-2 border border-gray-300 rounded bg-[#EDC5AB] hover:bg-[#37745B] hover:text-[#EDC5AB] text-red-700 text-3xl"
         >
           Reset Filters
         </button>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-4 text-2xl">
         {isLoading
           ? "Loading..."
           : `Found ${totalFilteredCount} characters`}
@@ -147,50 +147,53 @@ export default function HomePageClient() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
         {characters && characters.length > 0 ? (
           characters.map((char: Character) => (
-            <div
-              key={char.id}
-              className="border-4 border-[#37745B] p-0 pb-4 rounded-[25px] bg-[#8B9D77] text-black"
-              style={{ width: "300px" }}
-            >
-              <div className="relative">
-                <Image
-                  src={char.image}
-                  alt={char.name}
-                  width={500}
-                  height={500}
-                  className="object-cover w-full rounded-t-[25px]"
-                />
-                {char.status === "Dead" && (
-                  <div className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded">
-                    {char.status}
-                  </div>
-                )}
-                {char.status === "Alive" && (
-                  <div className="absolute top-2 right-2 bg-green-600 text-white p-1 rounded">
-                    {char.status}
-                  </div>
-                )}
-                {!["Alive", "Dead"].includes(char.status) && (
-                  <div className="absolute top-2 right-2 bg-gray-600 text-white p-1 rounded">
-                    {char.status}
-                  </div>
-                )}
-              </div>
+<div
+  key={char.id}
+  className="border-4 border-[#37745B] p-0 pb-4 rounded-[25px] bg-[#8B9D77] text-black flex flex-col justify-between"
+  style={{ width: "300px" }}
+>
+  <div className="relative">
+    <Image
+      src={char.image}
+      alt={char.name}
+      width={500}
+      height={500}
+      className="object-cover w-full rounded-t-[25px]"
+    />
+    {char.status === "Dead" && (
+      <div className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded">
+        {char.status}
+      </div>
+    )}
+    {char.status === "Alive" && (
+      <div className="absolute top-2 right-2 bg-green-600 text-white p-1 rounded">
+        {char.status}
+      </div>
+    )}
+    {!["Alive", "Dead"].includes(char.status) && (
+      <div className="absolute top-2 right-2 bg-gray-600 text-white p-1 rounded">
+        {char.status}
+      </div>
+    )}
+  </div>
 
-              <div className="flex flex-col p-4">
-                <h2 className="text-lg font-semibold mb-4 text-center">
-                  {char.name}
-                </h2>
-                <p className="text-xs">Last location:</p>
-                <p className="mb-4">{char.location.name}</p>
-                <a
-                  href={`/character/${char.id}`}
-                  className="text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded-[50px] flex items-center justify-center h-[50px]"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
+  <div className="flex flex-col p-4 flex-grow">
+    <h2 className="text-3xl font-semibold mb-4 text-center">
+      {char.name}
+    </h2>
+    <p className="text-1xl">Last location:</p>
+    <p className="mb-4 text-3xl">{char.location.name}</p>
+    <div className="mt-auto">
+      <a
+        href={`/character/${char.id}`}
+        className="text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded-[50px] flex items-center justify-center h-[50px] text-3xl"
+      >
+        View Details
+      </a>
+    </div>
+  </div>
+</div>
+
           ))
         ) : (
           <div className="text-center text-lg">No search results found</div>

@@ -36,8 +36,8 @@ export default async function CharacterPage({ params }: PageProps) {
         <Image
           src={character.image}
           alt={character.name}
-          width={800}
-          height={800}
+          width={500}
+          height={500}
           className="object-cover mb-4"
         />
         <p><strong>Status:</strong> {character.status}</p>
