@@ -186,7 +186,7 @@ export default function HomePageClient() {
     <div className="mt-auto">
       <a
         href={`/character/${char.id}`}
-        className="text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded-[50px] flex items-center justify-center h-[50px] text-3xl"
+        className="text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded-[50px] flex items-center justify-center h-[50px] text-3xl transition-all duration-500 ease-in-out"
       >
         View Details
       </a>
