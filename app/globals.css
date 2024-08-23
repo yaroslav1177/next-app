@@ -97,6 +97,8 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #217074;
+  color: #E7EAEF;
 }
 
 .ubuntu {

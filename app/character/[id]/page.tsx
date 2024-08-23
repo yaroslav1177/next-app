@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { fetchCharacter } from '../../lib/api'; // Убедитесь, что путь правильный
+import { fetchCharacter } from '../../lib/api';
 
 type Character = {
   id: number;
@@ -26,7 +26,7 @@ interface PageProps {
 export default async function CharacterPage({ params }: PageProps) {
   const { id } = params;
 
-  if (!id) return <div>Loading...</div>; // Или можно сделать редирект
+  if (!id) return <div>Loading...</div>;
 
   try {
     const character = await fetchCharacter(Number(id));
@@ -49,6 +49,6 @@ export default async function CharacterPage({ params }: PageProps) {
       </div>
     );
   } catch (error) {
-    return <div>Error loading character data.</div>; // Покажите сообщение об ошибке
+    return <div>Error loading character data.</div>;
   }
 }
