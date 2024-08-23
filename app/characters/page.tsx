@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import ReactPaginate from "react-paginate";
-import { fetchCharacters } from "./lib/api";
+import { fetchCharacters } from "../lib/api";
 
 type Character = {
   id: number;
@@ -49,19 +49,19 @@ export default function HomePageClient() {
   };
 
   useEffect(() => {
-    loadCharacters(1); // Загружаем первую страницу при изменении фильтров
+    loadCharacters(1);
   }, [searchTerm, statusFilter, speciesFilter, genderFilter]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected + 1);
-    loadCharacters(selected + 1); // Загружаем новую страницу при переключении пагинации
+    loadCharacters(selected + 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleLoadMore = () => {
     if (currentPage < pageCount) {
-      loadCharacters(currentPage + 1, true); // Догружаем карточки
-      setCurrentPage((prev) => prev + 1); // Обновляем номер страницы
+      loadCharacters(currentPage + 1, true);
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
@@ -71,14 +71,12 @@ export default function HomePageClient() {
     setSpeciesFilter(null);
     setGenderFilter(null);
     setCurrentPage(1);
-    loadCharacters(1); // Перезагружаем данные без фильтров
+    loadCharacters(1);
   };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Rick and Morty Characters</h1>
-
-      {/* Поисковая строка */}
       <input
         type="text"
         placeholder="Search characters..."
@@ -86,11 +84,10 @@ export default function HomePageClient() {
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          setCurrentPage(1); // Reset to first page on search
+          setCurrentPage(1);
         }}
       />
 
-      {/* Фильтры и сброс */}
       <div className="mb-4 flex space-x-4">
         <select
           onChange={(e) => setStatusFilter(e.target.value || null)}
@@ -133,7 +130,6 @@ export default function HomePageClient() {
           <option value="unknown">Unknown</option>
         </select>
 
-        {/* Кнопка сброса фильтров */}
         <button
           onClick={resetFilters}
           className="p-2 border border-gray-300 rounded bg-[#EDC5AB] hover:bg-[#37745B] hover:text-[#EDC5AB] text-red-700"
@@ -142,14 +138,12 @@ export default function HomePageClient() {
         </button>
       </div>
 
-      {/* Счетчик найденных карточек */}
       <div className="mb-4">
         {isLoading
           ? "Loading..."
           : `Found ${totalFilteredCount} characters`}
       </div>
 
-      {/* Карточки */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
         {characters && characters.length > 0 ? (
           characters.map((char: Character) => (
@@ -203,7 +197,6 @@ export default function HomePageClient() {
         )}
       </div>
 
-      {/* Кнопка "Load More" и пагинация */}
       {characters && characters.length > 0 && (
         <>
           {currentPage < pageCount && (
