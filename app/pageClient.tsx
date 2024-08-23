@@ -1,71 +1,77 @@
 "use client";
-
-import Image from "next/image";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import ReactPaginate from "react-paginate";
-import { fetchCharacters } from "./lib/api"; // Импортируйте свою функцию загрузки данных
+import { fetchCharacters } from "./lib/api";
 
 type Character = {
   id: number;
   name: string;
   image: string;
   status: string;
+  species: string;
+  gender: string;
   location: {
     name: string;
   };
 };
 
-type CharacterResponse = {
-  characters: Character[];
-  info: {
-    count: number;
-    pages: number;
-  };
-};
-
 export default function HomePageClient() {
   const [characters, setCharacters] = useState<Character[]>([]);
-  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
-  const [totalCount, setTotalCount] = useState(0);
   const [totalFilteredCount, setTotalFilteredCount] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [speciesFilter, setSpeciesFilter] = useState<string | null>(null);
+  const [genderFilter, setGenderFilter] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadCharacters = async (page: number, search: string) => {
+  const loadCharacters = async (page: number, append: boolean = false) => {
     setIsLoading(true);
     try {
-      const { characters: fetchedCharacters, info }: CharacterResponse = await fetchCharacters(page, search);
-      setCharacters((prev) => page === 1 ? fetchedCharacters : [...prev, ...fetchedCharacters]);
-      setTotalCount(info.count);
-      setPageCount(info.pages);
-      if (!search) {
-        setTotalFilteredCount(info.count);
-      }
+      const { characters: fetchedCharacters, info } = await fetchCharacters(
+        page,
+        searchTerm,
+        statusFilter,
+        speciesFilter,
+        genderFilter
+      );
+      setCharacters((prev) => append ? [...prev, ...fetchedCharacters] : fetchedCharacters);
+      setTotalFilteredCount(fetchedCharacters.length > 0 ? info.count : 0);
+      setPageCount(fetchedCharacters.length > 0 ? info.pages : 0);
     } catch (error) {
       console.error("Failed to load characters:", error);
+      setTotalFilteredCount(0);
+      setPageCount(0);
     }
     setIsLoading(false);
   };
 
   useEffect(() => {
-    loadCharacters(currentPage, searchTerm);
-  }, [currentPage, searchTerm]);
-
-  useEffect(() => {
-    if (characters) {
-      const results = characters.filter((char) =>
-        char.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredCharacters(results);
-      setTotalFilteredCount(results.length);
-    }
-  }, [characters, searchTerm]);
+    loadCharacters(1); // Загружаем первую страницу при изменении фильтров
+  }, [searchTerm, statusFilter, speciesFilter, genderFilter]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected + 1);
+    loadCharacters(selected + 1); // Загружаем новую страницу при переключении пагинации
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLoadMore = () => {
+    if (currentPage < pageCount) {
+      loadCharacters(currentPage + 1, true); // Догружаем карточки
+      setCurrentPage((prev) => prev + 1); // Обновляем номер страницы
+    }
+  };
+
+  const resetFilters = () => {
+    setSearchTerm("");
+    setStatusFilter(null);
+    setSpeciesFilter(null);
+    setGenderFilter(null);
+    setCurrentPage(1);
+    loadCharacters(1); // Перезагружаем данные без фильтров
   };
 
   return (
@@ -84,17 +90,69 @@ export default function HomePageClient() {
         }}
       />
 
+      {/* Фильтры и сброс */}
+      <div className="mb-4 flex space-x-4">
+        <select
+          onChange={(e) => setStatusFilter(e.target.value || null)}
+          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+          value={statusFilter || ""}
+        >
+          <option value="">All Statuses</option>
+          <option value="Alive">Alive</option>
+          <option value="Dead">Dead</option>
+          <option value="unknown">Unknown</option>
+        </select>
+
+        <select
+          onChange={(e) => setSpeciesFilter(e.target.value || null)}
+          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+          value={speciesFilter || ""}
+        >
+          <option value="">All Species</option>
+          <option value="Human">Human</option>
+          <option value="Alien">Alien</option>
+          <option value="Robot">Robot</option>
+          <option value="Humanoid">Humanoid</option>
+          <option value="Poopybutthole">Poopybutthole</option>
+          <option value="Mythological">Mythological</option>
+          <option value="Animal">Animal</option>
+          <option value="Disease">Disease</option>
+          <option value="Cronenberg">Cronenberg</option>
+          <option value="Unknown">Unknown</option>
+        </select>
+
+        <select
+          onChange={(e) => setGenderFilter(e.target.value || null)}
+          className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300"
+          value={genderFilter || ""}
+        >
+          <option value="">All Genders</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Genderless">Genderless</option>
+          <option value="unknown">Unknown</option>
+        </select>
+
+        {/* Кнопка сброса фильтров */}
+        <button
+          onClick={resetFilters}
+          className="p-2 border border-gray-300 rounded bg-[#EDC5AB] hover:bg-[#37745B] hover:text-[#EDC5AB] text-red-700"
+        >
+          Reset Filters
+        </button>
+      </div>
+
       {/* Счетчик найденных карточек */}
       <div className="mb-4">
         {isLoading
           ? "Loading..."
-          : `Found ${searchTerm ? totalFilteredCount : totalCount} characters`}
+          : `Found ${totalFilteredCount} characters`}
       </div>
 
       {/* Карточки */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
-        {filteredCharacters.length > 0 ? (
-          filteredCharacters.map((char: Character) => (
+        {characters && characters.length > 0 ? (
+          characters.map((char: Character) => (
             <div
               key={char.id}
               className="border-4 border-[#37745B] p-0 pb-4 rounded-[25px] bg-[#8B9D77] text-black"
@@ -145,18 +203,17 @@ export default function HomePageClient() {
         )}
       </div>
 
-      {/* Кнопка "Load More" и Пагинация */}
-      {filteredCharacters.length > 0 && (
+      {/* Кнопка "Load More" и пагинация */}
+      {characters && characters.length > 0 && (
         <>
-          {currentPage < pageCount && !isLoading && (
+          {currentPage < pageCount && (
             <button
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-              className="my-6 mx-auto px-4 py-2 text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded flex justify-center items-center "
+              onClick={handleLoadMore}
+              className="mt-6 mx-auto px-4 py-2 text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded flex justify-center items-center"
             >
               Load More
             </button>
           )}
-
           <ReactPaginate
             previousLabel={"← Previous"}
             nextLabel={"Next →"}
@@ -178,4 +235,3 @@ export default function HomePageClient() {
     </div>
   );
 }
-

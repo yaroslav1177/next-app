@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { fetchCharacters } from "./lib/api";
 import HomePageClient from "./pageClient";
 
