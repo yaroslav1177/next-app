@@ -66,7 +66,7 @@ export default function HomePageClient() {
 
   return (
     <div className="container mx-auto p-4 pt-[100px]">
-      <h1 className="font-bold mb-4 text-6xl">Rick and Morty Characters</h1>
+      <h1 className="mb-4 text-7xl">Rick and Morty Characters</h1>
 
       <CharacterFilters
         searchTerm={searchTerm}
