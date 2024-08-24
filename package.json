@@ -12,13 +12,15 @@
     "@opentelemetry/api-logs": "^0.52.1",
     "@opentelemetry/instrumentation": "^0.52.1",
     "@opentelemetry/sdk-logs": "^0.52.1",
+    "@reduxjs/toolkit": "^2.2.7",
     "@vercel/otel": "^1.10.0",
     "animate.css": "^4.1.1",
     "intersection-observer": "^0.12.2",
     "next": "14.2.6",
     "react": "^18",
     "react-dom": "^18",
-    "react-paginate": "^8.2.0"
+    "react-paginate": "^8.2.0",
+    "react-redux": "^9.1.2"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,87 +1,59 @@
 "use client";
-import { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
-import { fetchCharacters } from "../lib/api";
-import { Character } from "../types/Character";
-import CharacterCard from "../components/CharacterCard";
-import CharacterFilters from "../components/CharacterFilters";
-import Footer from "../components/Footer";
-import CharacterModal from "../components/CharacterModal";
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import {
+  loadCharacters,
+  setSearchTerm,
+  setStatusFilter,
+  setSpeciesFilter,
+  setGenderFilter,
+  setSelectedCharacter,
+  setVisibleCards,
+  resetFilters,
+} from '../slices/charactersSlice';
+import { useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
+import CharacterCard from '../components/CharacterCard';
+import CharacterFilters from '../components/CharacterFilters';
+import Footer from '../components/Footer';
+import CharacterModal from '../components/CharacterModal';
 
 export default function CharactersPage() {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [totalFilteredCount, setTotalFilteredCount] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string | null>(null);
-  const [speciesFilter, setSpeciesFilter] = useState<string | null>(null);
-  const [genderFilter, setGenderFilter] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
-  const [visibleCards, setVisibleCards] = useState<number[]>([]);
-
-  const loadCharacters = async (page: number, append: boolean = false) => {
-    setIsLoading(true);
-    try {
-      const { characters: fetchedCharacters, info } = await fetchCharacters(
-        page,
-        searchTerm,
-        statusFilter,
-        speciesFilter,
-        genderFilter
-      );
-      setCharacters((prev) =>
-        append ? [...prev, ...fetchedCharacters] : fetchedCharacters
-      );
-      setTotalFilteredCount(fetchedCharacters.length > 0 ? info.count : 0);
-      setPageCount(fetchedCharacters.length > 0 ? info.pages : 0);
-    } catch (error) {
-      console.error("Failed to load characters:", error);
-      setTotalFilteredCount(0);
-      setPageCount(0);
-    }
-    setIsLoading(false);
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    characters,
+    totalFilteredCount,
+    pageCount,
+    currentPage,
+    searchTerm,
+    statusFilter,
+    speciesFilter,
+    genderFilter,
+    isLoading,
+    selectedCharacter,
+    visibleCards,
+  } = useSelector((state: RootState) => state.characters);
 
   useEffect(() => {
-    loadCharacters(1);
-  }, [searchTerm, statusFilter, speciesFilter, genderFilter]);
+    dispatch(loadCharacters({ page: 1, searchTerm, statusFilter, speciesFilter, genderFilter }));
+  }, [searchTerm, statusFilter, speciesFilter, genderFilter, dispatch]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected + 1);
-    loadCharacters(selected + 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    dispatch(loadCharacters({ page: selected + 1, searchTerm, statusFilter, speciesFilter, genderFilter }));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleLoadMore = () => {
     if (currentPage < pageCount) {
-      loadCharacters(currentPage + 1, true);
-      setCurrentPage((prev) => prev + 1);
+      dispatch(loadCharacters({ page: currentPage + 1, searchTerm, statusFilter, speciesFilter, genderFilter }));
     }
-  };
-
-  const resetFilters = () => {
-    setSearchTerm("");
-    setStatusFilter(null);
-    setSpeciesFilter(null);
-    setGenderFilter(null);
-    setCurrentPage(1);
-    loadCharacters(1);
-  };
-
-  const closeModal = () => {
-    setSelectedCharacter(null);
   };
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setVisibleCards((prev) => [
-            ...prev,
-            parseInt(entry.target.getAttribute('data-id') || '0'),
-          ]);
+          dispatch(setVisibleCards([...visibleCards, parseInt(entry.target.getAttribute('data-id') || '0')]));
         }
       });
     }, {
@@ -94,7 +66,7 @@ export default function CharactersPage() {
     return () => {
       elements.forEach((el) => observer.unobserve(el));
     };
-  }, [characters]);
+  }, [characters, dispatch, visibleCards]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -104,19 +76,19 @@ export default function CharactersPage() {
 
           <CharacterFilters
             searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
+            setSearchTerm={(term) => dispatch(setSearchTerm(term))}
             statusFilter={statusFilter}
-            setStatusFilter={setStatusFilter}
+            setStatusFilter={(filter) => dispatch(setStatusFilter(filter))}
             speciesFilter={speciesFilter}
-            setSpeciesFilter={setSpeciesFilter}
+            setSpeciesFilter={(filter) => dispatch(setSpeciesFilter(filter))}
             genderFilter={genderFilter}
-            setGenderFilter={setGenderFilter}
-            resetFilters={resetFilters}
+            setGenderFilter={(filter) => dispatch(setGenderFilter(filter))}
+            resetFilters={() => dispatch(resetFilters())}
           />
 
           <div className="mb-4 text-2xl">
             {isLoading
-              ? "Loading..."
+              ? 'Loading...'
               : `Found ${totalFilteredCount} characters`}
           </div>
         </div>
@@ -124,18 +96,19 @@ export default function CharactersPage() {
         <div className="mx-24">
           <div className="grid justify-items-center gap-y-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {characters && characters.length > 0 ? (
-              characters.map((char: Character) => (
+              characters.map((char) => (
                 <div
-                key={char.id}
-                className={`character-card animate__animated ${
-                  visibleCards.includes(char.id) ? 'animate__animated animate__pulse' : ''
-                }`}
-                data-id={char.id}
-              ><CharacterCard
-              character={char}
-              onViewDetails={() => setSelectedCharacter(char)}
-            /></div>
-
+                  key={char.id}
+                  className={`character-card animate__animated ${
+                    visibleCards.includes(char.id) ? 'animate__animated animate__pulse' : ''
+                  }`}
+                  data-id={char.id}
+                >
+                  <CharacterCard
+                    character={char}
+                    onViewDetails={() => dispatch(setSelectedCharacter(char))}
+                  />
+                </div>
               ))
             ) : (
               <div className="text-center text-lg">No search results found</div>
@@ -154,28 +127,20 @@ export default function CharactersPage() {
               </button>
             )}
             <ReactPaginate
-              previousLabel={"← Previous"}
-              nextLabel={"Next →"}
+              previousLabel={'← Previous'}
+              nextLabel={'Next →'}
               pageCount={pageCount}
               onPageChange={handlePageChange}
-              containerClassName={"pagination flex justify-center mt-4"}
-              pageClassName={"page-item mx-1 hidden md:block"}
-              pageLinkClassName={
-                "page-link px-3 py-1 border border-gray-300 rounded"
-              }
-              previousClassName={"page-item"}
-              previousLinkClassName={
-                "page-link px-3 py-1 border border-gray-300 rounded"
-              }
-              nextClassName={"page-item"}
-              nextLinkClassName={
-                "page-link px-3 py-1 border border-gray-300 rounded"
-              }
-              breakClassName={"page-item"}
-              breakLinkClassName={
-                "page-link px-3 py-1 border border-gray-300 rounded"
-              }
-              activeClassName={"bg-[#EDC5AB] text-black"}
+              containerClassName={'pagination flex justify-center mt-4'}
+              pageClassName={'page-item mx-1 hidden md:block'}
+              pageLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
+              previousClassName={'page-item'}
+              previousLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
+              nextClassName={'page-item'}
+              nextLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
+              breakClassName={'page-item'}
+              breakLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
+              activeClassName={'bg-[#EDC5AB] text-black'}
             />
           </>
         )}
@@ -183,10 +148,10 @@ export default function CharactersPage() {
       <Footer />
 
       {selectedCharacter && (
-        <CharacterModal 
-        character={selectedCharacter} 
-        onClose={closeModal} 
-      />
+        <CharacterModal
+          character={selectedCharacter}
+          onClose={() => dispatch(setSelectedCharacter(null))}
+        />
       )}
     </div>
   );
