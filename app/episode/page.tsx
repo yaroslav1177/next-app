@@ -85,7 +85,9 @@ export default function Episode() {
         </div>
         <div className="">
           <div className="flex flex-col items-center mb-4">
-            <h4 className="text-center mb-4 text-3xl animate__animated animate__rollIn">Pick Episode</h4>
+            <h4 className="text-center mb-4 text-3xl animate__animated animate__rollIn">
+              Pick Episode
+            </h4>
             <InputGroup name="Episode" changeID={setID} total={51} />
           </div>
           <div className="mx-24">

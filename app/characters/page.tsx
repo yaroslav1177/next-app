@@ -8,7 +8,7 @@ import CharacterFilters from "../components/CharacterFilters";
 import Footer from "../components/Footer";
 import CharacterModal from "../components/CharacterModal";
 
-export default function HomePageClient() {
+export default function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [totalFilteredCount, setTotalFilteredCount] = useState(0);
   const [pageCount, setPageCount] = useState(0);

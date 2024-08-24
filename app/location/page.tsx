@@ -92,7 +92,9 @@ export default function Location() {
         </div>
         <div className="">
           <div className="flex flex-col items-center mb-4">
-            <h4 className="text-center mb-4 text-3xl animate__animated animate__rollIn">Pick Location</h4>
+            <h4 className="text-center mb-4 text-3xl animate__animated animate__rollIn">
+              Pick Location
+            </h4>
             <InputGroup name="Location" changeID={setNumber} total={126} />
           </div>
           <div className="mx-24">

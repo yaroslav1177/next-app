@@ -40,11 +40,20 @@ module.exports = {
             opacity: '1',
           },
         },
+        borderSpin: {
+          '0%': {
+            'border-image-source': 'conic-gradient(from 0deg, #37745B, #8B9D77, #37745B)',
+          },
+          '100%': {
+            'border-image-source': 'conic-gradient(from 360deg, #37745B, #8B9D77, #37745B)',
+          },
+        },
       },
       animation: {
         rotateIn: 'rotateIn 1s ease-out',
         bounceInLeft: 'bounceInLeft 1s ease-out',
         slideInUp: 'slideInUp 1s ease-out',
+        borderSpin: 'borderSpin 3s linear infinite',
       },
     },
   },

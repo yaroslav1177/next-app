@@ -1,5 +1,5 @@
 import NavBar from "./components/NavBar";
-import Home from "./home";
+import Home from "./pages/HomePage";
 
 export default async function HomePage() {
 
