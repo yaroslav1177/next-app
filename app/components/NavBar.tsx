@@ -5,9 +5,9 @@ export default function NavBar() {
         <a href="/" className="flex my-auto text-black leading-[80px] text-[60px]">Rick & Morty Universe</a>
         <div>
           <ul className="text-black flex items-center gap-5 text-[32px]">
-            <li>Characters</li>
-            <li>Episode</li>
-            <li>Location</li>
+            <li><a href="/characters">Characters</a></li>
+            <li><a href="/episode">Episode</a></li>
+            <li><a href="/location">Location</a></li>
           </ul>
         </div>
       </div>

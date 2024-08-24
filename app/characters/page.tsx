@@ -3,18 +3,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import ReactPaginate from "react-paginate";
 import { fetchCharacters } from "../lib/api";
+import { Character } from "../types/Character";
 
-type Character = {
-  id: number;
-  name: string;
-  image: string;
-  status: string;
-  species: string;
-  gender: string;
-  location: {
-    name: string;
-  };
-};
+
 
 export default function HomePageClient() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -76,7 +67,7 @@ export default function HomePageClient() {
 
   return (
     <div className="container mx-auto p-4 pt-[100px]">
-      <h1 className="text-2xl font-bold mb-4 text-6xl">Rick and Morty Characters</h1>
+      <h1 className="font-bold mb-4 text-6xl">Rick and Morty Characters</h1>
       <input
         type="text"
         placeholder="Search characters..."
