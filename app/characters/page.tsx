@@ -99,7 +99,7 @@ export default function HomePageClient() {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto p-4 pt-[100px] flex-grow">
-        <div className="mx-24">
+        <div className="md:mx-24">
           <h1 className="mb-4 text-7xl animate-bounceInLeft">Rick and Morty Characters</h1>
 
           <CharacterFilters
@@ -159,7 +159,7 @@ export default function HomePageClient() {
               pageCount={pageCount}
               onPageChange={handlePageChange}
               containerClassName={"pagination flex justify-center mt-4"}
-              pageClassName={"page-item mx-1"}
+              pageClassName={"page-item mx-1 hidden md:block"}
               pageLinkClassName={
                 "page-link px-3 py-1 border border-gray-300 rounded"
               }

@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <div className="homePage flex flex-col items-center justify-center min-h-screen">
       <p
-        className="text-center uppercase text-[80px] font-bold pl-3 animate-rotateIn"
+        className="text-center uppercase text-[40px] md:text-[80px] font-bold pl-3 animate-rotateIn"
         style={{
           color: "#EDC5AB",
           textShadow: `

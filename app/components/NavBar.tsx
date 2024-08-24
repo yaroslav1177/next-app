@@ -7,12 +7,12 @@ export default function NavBar() {
 
   return (
     <div className="w-full h-20 fixed top-0 left-0 z-10 bg-[#8B9D77] border-b-4 border-black">
-      <div className="flex items-center justify-between px-12">
-        <Link href="/" className={`flex my-auto text-black leading-[80px] text-[30px] md:text-[40px] lg:text-[60px] transition-all duration-300 ease-in-out hover:text-[#EDC5AB]`}>
+      <div className="flex items-center justify-between px-3 md:px-12">
+        <Link href="/" className={`flex my-auto text-black leading-[80px] text-[25px] md:text-[40px] lg:text-[60px] transition-all duration-300 ease-in-out hover:text-[#EDC5AB]`}>
           Rick & Morty Universe
         </Link>
         <div>
-          <div className="text-black flex items-center gap-5 text-[20px] md:text-[22px] lg:text-[32px] ">
+          <div className="text-black flex items-center gap-1 md:gap-5 flex-col sm:flex-row sm:text-[20px] md:text-[22px] lg:text-[32px] ">
             <Link href="/characters" className={`transition-transform duration-300 ease-in-out transform ${
               pathname === '/characters' ? 'text-[#EDC5AB]' : 'hover:rotate-12 hover:text-[#EDC5AB]'
             }`}>
