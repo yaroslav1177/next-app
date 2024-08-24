@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function NavBar() {
-  const pathname = usePathname(); // Получаем текущий путь
+  const pathname = usePathname();
 
   return (
-    <div className="w-full h-[80px] fixed top-0 left-0 z-10 bg-[#8B9D77] border-b-4 border-black">
+    <div className="w-full h-20 fixed top-0 left-0 z-10 bg-[#8B9D77] border-b-4 border-black">
       <div className="flex items-center justify-between px-12">
         <Link href="/" className={`flex my-auto text-black leading-[80px] text-[60px] transition-all duration-300 ease-in-out ${
           pathname === '/' ? 'text-white' : 'hover:text-[#EDC5AB]'

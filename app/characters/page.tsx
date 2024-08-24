@@ -5,6 +5,7 @@ import { fetchCharacters } from "../lib/api";
 import { Character } from "../types/Character";
 import CharacterCard from "../components/CharacterCard";
 import CharacterFilters from "../components/CharacterFilters";
+import Footer from "../components/Footer";
 
 export default function HomePageClient() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -67,75 +68,80 @@ export default function HomePageClient() {
   };
 
   return (
-    <div className="container mx-auto p-4 pt-[100px]">
-      <div className="mx-24">
-        <h1 className="mb-4 text-7xl">Rick and Morty Characters</h1>
+    <div className="flex flex-col min-h-screen">
+      <div className="container mx-auto p-4 pt-[100px] flex-grow">
+        <div className="mx-24">
+          <h1 className="mb-4 text-7xl">Rick and Morty Characters</h1>
 
-        <CharacterFilters
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-          speciesFilter={speciesFilter}
-          setSpeciesFilter={setSpeciesFilter}
-          genderFilter={genderFilter}
-          setGenderFilter={setGenderFilter}
-          resetFilters={resetFilters}
-        />
-
-        <div className="mb-4 text-2xl">
-          {isLoading ? "Loading..." : `Found ${totalFilteredCount} characters`}
-        </div>
-      </div>
-
-      <div className="mx-24">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
-          {characters && characters.length > 0 ? (
-            characters.map((char: Character) => (
-              <CharacterCard key={char.id} character={char} />
-            ))
-          ) : (
-            <div className="text-center text-lg">No search results found</div>
-          )}
-        </div>
-      </div>
-
-      {characters && characters.length > 0 && (
-        <>
-          {currentPage < pageCount && (
-            <button
-              onClick={handleLoadMore}
-              className="mt-6 mx-auto px-4 py-2 text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded flex justify-center items-center"
-            >
-              Load More
-            </button>
-          )}
-          <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
-            pageCount={pageCount}
-            onPageChange={handlePageChange}
-            containerClassName={"pagination flex justify-center mt-4"}
-            pageClassName={"page-item mx-1"}
-            pageLinkClassName={
-              "page-link px-3 py-1 border border-gray-300 rounded"
-            }
-            previousClassName={"page-item"}
-            previousLinkClassName={
-              "page-link px-3 py-1 border border-gray-300 rounded"
-            }
-            nextClassName={"page-item"}
-            nextLinkClassName={
-              "page-link px-3 py-1 border border-gray-300 rounded"
-            }
-            breakClassName={"page-item"}
-            breakLinkClassName={
-              "page-link px-3 py-1 border border-gray-300 rounded"
-            }
-            activeClassName={"bg-[#EDC5AB] text-black"}
+          <CharacterFilters
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            statusFilter={statusFilter}
+            setStatusFilter={setStatusFilter}
+            speciesFilter={speciesFilter}
+            setSpeciesFilter={setSpeciesFilter}
+            genderFilter={genderFilter}
+            setGenderFilter={setGenderFilter}
+            resetFilters={resetFilters}
           />
-        </>
-      )}
+
+          <div className="mb-4 text-2xl">
+            {isLoading
+              ? "Loading..."
+              : `Found ${totalFilteredCount} characters`}
+          </div>
+        </div>
+
+        <div className="mx-24">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
+            {characters && characters.length > 0 ? (
+              characters.map((char: Character) => (
+                <CharacterCard key={char.id} character={char} />
+              ))
+            ) : (
+              <div className="text-center text-lg">No search results found</div>
+            )}
+          </div>
+        </div>
+
+        {characters && characters.length > 0 && (
+          <>
+            {currentPage < pageCount && (
+              <button
+                onClick={handleLoadMore}
+                className="mt-6 mx-auto px-4 py-2 text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded flex justify-center items-center"
+              >
+                Load More
+              </button>
+            )}
+            <ReactPaginate
+              previousLabel={"← Previous"}
+              nextLabel={"Next →"}
+              pageCount={pageCount}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination flex justify-center mt-4"}
+              pageClassName={"page-item mx-1"}
+              pageLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              previousClassName={"page-item"}
+              previousLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              nextClassName={"page-item"}
+              nextLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              breakClassName={"page-item"}
+              breakLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              activeClassName={"bg-[#EDC5AB] text-black"}
+            />
+          </>
+        )}
+      </div>
+      <Footer />
     </div>
   );
 }
