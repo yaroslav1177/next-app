@@ -3,12 +3,12 @@ import { Character } from "../types/Character";
 
 interface CharacterCardProps {
   character: Character;
+  onViewDetails: () => void;
 }
 
-export default function CharacterCard({ character }: CharacterCardProps) {
+export default function CharacterCard({ character, onViewDetails }: CharacterCardProps) {
   return (
     <div
-      key={character.id}
       className="border-4 border-[#37745B] p-0 pb-4 rounded-[25px] bg-[#8B9D77] text-black flex flex-col justify-between"
       style={{ width: "300px" }}
     >
@@ -44,12 +44,12 @@ export default function CharacterCard({ character }: CharacterCardProps) {
         <p className="text-1xl">Last location:</p>
         <p className="mb-4 text-3xl">{character.location.name}</p>
         <div className="mt-auto">
-          <a
-            href={`/character/${character.id}`}
-            className="text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded-[50px] flex items-center justify-center h-[50px] text-3xl transition-all duration-500 ease-in-out"
+          <button
+            onClick={onViewDetails}
+            className="text-[#EDC5AB] bg-[#37745B] hover:text-[#37745B] hover:bg-[#EDC5AB] border-2 border-[#EDC5AB] hover:border-[#37745B] rounded-[50px] flex items-center justify-center h-[50px] text-3xl transition-all duration-500 ease-in-out w-full"
           >
             View Details
-          </a>
+          </button>
         </div>
       </div>
     </div>

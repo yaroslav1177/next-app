@@ -8,9 +8,7 @@ export default function NavBar() {
   return (
     <div className="w-full h-20 fixed top-0 left-0 z-10 bg-[#8B9D77] border-b-4 border-black">
       <div className="flex items-center justify-between px-12">
-        <Link href="/" className={`flex my-auto text-black leading-[80px] text-[60px] transition-all duration-300 ease-in-out ${
-          pathname === '/' ? 'text-white' : 'hover:text-[#EDC5AB]'
-        }`}>
+        <Link href="/" className={`flex my-auto text-black leading-[80px] text-[60px] transition-all duration-300 ease-in-out hover:text-[#EDC5AB]`}>
           Rick & Morty Universe
         </Link>
         <div>

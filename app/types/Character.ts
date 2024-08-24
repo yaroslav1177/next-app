@@ -8,4 +8,8 @@ export type Character = {
   location: {
     name: string;
   };
+  origin: {
+    name: string;
+  };
+  episode: string[];
 };
