@@ -5,6 +5,7 @@ import CharacterCard from "../components/CharacterCard";
 import { Character } from "../types/Character";
 import Footer from "../components/Footer";
 import CharacterModal from "../components/CharacterModal";
+import BackToTop from "../components/BackToTop"; // Импортируйте компонент
 
 export default function Location() {
   const [results, setResults] = useState<Character[]>([]);
@@ -19,9 +20,7 @@ export default function Location() {
   });
   const { dimension, type, name } = info;
   const [number, setNumber] = useState(1);
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
-    null
-  );
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
 
   const api = `https://rickandmortyapi.com/api/location/${number}`;
@@ -130,6 +129,8 @@ export default function Location() {
       {selectedCharacter && (
         <CharacterModal character={selectedCharacter} onClose={closeModal} />
       )}
+
+      <BackToTop />
     </div>
   );
 }

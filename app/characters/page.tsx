@@ -1,6 +1,6 @@
 "use client";
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../store';
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../store";
 import {
   loadCharacters,
   setSearchTerm,
@@ -10,13 +10,14 @@ import {
   setSelectedCharacter,
   setVisibleCards,
   resetFilters,
-} from '../slices/charactersSlice';
-import { useEffect } from 'react';
-import ReactPaginate from 'react-paginate';
-import CharacterCard from '../components/CharacterCard';
-import CharacterFilters from '../components/CharacterFilters';
-import Footer from '../components/Footer';
-import CharacterModal from '../components/CharacterModal';
+} from "../slices/charactersSlice";
+import { useEffect } from "react";
+import ReactPaginate from "react-paginate";
+import CharacterCard from "../components/CharacterCard";
+import CharacterFilters from "../components/CharacterFilters";
+import Footer from "../components/Footer";
+import CharacterModal from "../components/CharacterModal";
+import BackToTop from "../components/BackToTop";
 
 export default function CharactersPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -35,32 +36,64 @@ export default function CharactersPage() {
   } = useSelector((state: RootState) => state.characters);
 
   useEffect(() => {
-    dispatch(loadCharacters({ page: 1, searchTerm, statusFilter, speciesFilter, genderFilter }));
+    dispatch(
+      loadCharacters({
+        page: 1,
+        searchTerm,
+        statusFilter,
+        speciesFilter,
+        genderFilter,
+      })
+    );
   }, [searchTerm, statusFilter, speciesFilter, genderFilter, dispatch]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
-    dispatch(loadCharacters({ page: selected + 1, searchTerm, statusFilter, speciesFilter, genderFilter }));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    dispatch(
+      loadCharacters({
+        page: selected + 1,
+        searchTerm,
+        statusFilter,
+        speciesFilter,
+        genderFilter,
+      })
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleLoadMore = () => {
     if (currentPage < pageCount) {
-      dispatch(loadCharacters({ page: currentPage + 1, searchTerm, statusFilter, speciesFilter, genderFilter }));
+      dispatch(
+        loadCharacters({
+          page: currentPage + 1,
+          searchTerm,
+          statusFilter,
+          speciesFilter,
+          genderFilter,
+        })
+      );
     }
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          dispatch(setVisibleCards([...visibleCards, parseInt(entry.target.getAttribute('data-id') || '0')]));
-        }
-      });
-    }, {
-      threshold: 0.1,
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            dispatch(
+              setVisibleCards([
+                ...visibleCards,
+                parseInt(entry.target.getAttribute("data-id") || "0"),
+              ])
+            );
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
 
-    const elements = document.querySelectorAll('.character-card');
+    const elements = document.querySelectorAll(".character-card");
     elements.forEach((el) => observer.observe(el));
 
     return () => {
@@ -72,7 +105,9 @@ export default function CharactersPage() {
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto p-4 pt-[100px] flex-grow">
         <div className="md:mx-24">
-          <h1 className="mb-4 text-7xl animate-bounceInLeft">Rick and Morty Characters</h1>
+          <h1 className="mb-4 text-7xl animate-bounceInLeft">
+            Rick and Morty Characters
+          </h1>
 
           <CharacterFilters
             searchTerm={searchTerm}
@@ -88,7 +123,7 @@ export default function CharactersPage() {
 
           <div className="mb-4 text-2xl">
             {isLoading
-              ? 'Loading...'
+              ? "Loading..."
               : `Found ${totalFilteredCount} characters`}
           </div>
         </div>
@@ -100,7 +135,9 @@ export default function CharactersPage() {
                 <div
                   key={char.id}
                   className={`character-card animate__animated ${
-                    visibleCards.includes(char.id) ? 'animate__animated animate__pulse' : ''
+                    visibleCards.includes(char.id)
+                      ? "animate__animated animate__pulse"
+                      : ""
                   }`}
                   data-id={char.id}
                 >
@@ -127,20 +164,28 @@ export default function CharactersPage() {
               </button>
             )}
             <ReactPaginate
-              previousLabel={'← Previous'}
-              nextLabel={'Next →'}
+              previousLabel={"← Previous"}
+              nextLabel={"Next →"}
               pageCount={pageCount}
               onPageChange={handlePageChange}
-              containerClassName={'pagination flex justify-center mt-4'}
-              pageClassName={'page-item mx-1 hidden md:block'}
-              pageLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
-              previousClassName={'page-item'}
-              previousLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
-              nextClassName={'page-item'}
-              nextLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
-              breakClassName={'page-item'}
-              breakLinkClassName={'page-link px-3 py-1 border border-gray-300 rounded'}
-              activeClassName={'bg-[#EDC5AB] text-black'}
+              containerClassName={"pagination flex justify-center mt-4"}
+              pageClassName={"page-item mx-1 hidden md:block"}
+              pageLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              previousClassName={"page-item"}
+              previousLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              nextClassName={"page-item"}
+              nextLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              breakClassName={"page-item"}
+              breakLinkClassName={
+                "page-link px-3 py-1 border border-gray-300 rounded"
+              }
+              activeClassName={"bg-[#EDC5AB] text-black"}
             />
           </>
         )}
@@ -153,6 +198,8 @@ export default function CharactersPage() {
           onClose={() => dispatch(setSelectedCharacter(null))}
         />
       )}
+
+      <BackToTop />
     </div>
   );
 }

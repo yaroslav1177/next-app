@@ -5,6 +5,7 @@ import CharacterCard from "../components/CharacterCard";
 import { Character } from "../types/Character";
 import Footer from "../components/Footer";
 import CharacterModal from "../components/CharacterModal";
+import BackToTop from "../components/BackToTop";
 
 export default function Episode() {
   const [results, setResults] = useState<Character[]>([]);
@@ -118,6 +119,8 @@ export default function Episode() {
       {selectedCharacter && (
         <CharacterModal character={selectedCharacter} onClose={closeModal} />
       )}
+      
+      <BackToTop />
     </div>
   );
 }
