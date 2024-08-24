@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar"; // Импортируем NavBar
 
 // const inter = Inter({ subsets: ["latin"] });
 import { Jersey_10 } from "next/font/google";
-import ClientLoader from "./ClientLayout";
+import ClientLoader from "./ClientLoader";
 
 const jersey10 = Jersey_10({
   weight: ["400",], // Укажи нужные веса

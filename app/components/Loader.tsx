@@ -17,7 +17,7 @@ const LottieLoader = () => {
     <div className="lottie-container">
       <div className='flex flex-col items-center gap-6 animate__animated animate__zoomIn'>
       <Lottie options={defaultOptions} height={400} width={400} />
-      <p className='text-8xl'>wait a second...</p>
+      <p className='text-2xl md:text-8xl'>wait a second...</p>
       </div>
     </div>
   );

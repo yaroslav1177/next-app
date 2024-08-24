@@ -6,6 +6,7 @@ import { Character } from "../types/Character";
 import Footer from "../components/Footer";
 import CharacterModal from "../components/CharacterModal";
 import BackToTop from "../components/BackToTop";
+import PagesLoader from "../components/PagesLoader";
 
 export default function Episode() {
   const [results, setResults] = useState<Character[]>([]);
@@ -71,7 +72,8 @@ export default function Episode() {
   }, [results]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <PagesLoader >
+          <div className="flex flex-col min-h-screen">
       <div className="container mx-auto p-4 pt-[100px] flex-grow">
         <div className="mb-3">
           <h1 className="text-center mb-3 text-7xl animate__animated animate__rollIn">
@@ -122,5 +124,6 @@ export default function Episode() {
       
       <BackToTop />
     </div>
+    </PagesLoader>
   );
 }

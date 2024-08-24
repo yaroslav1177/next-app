@@ -168,3 +168,12 @@ a {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* globals.css */
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: red; /* Прозрачный фон для лоадера */
+}

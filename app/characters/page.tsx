@@ -8,6 +8,7 @@ import CharacterFilters from "../components/CharacterFilters";
 import Footer from "../components/Footer";
 import CharacterModal from "../components/CharacterModal";
 import BackToTop from "../components/BackToTop";
+import PagesLoader from "../components/PagesLoader";
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -98,7 +99,8 @@ export default function CharactersPage() {
   }, [characters]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <PagesLoader >
+          <div className="flex flex-col min-h-screen">
       <div className="container mx-auto p-4 pt-[100px] flex-grow">
         <div className="md:mx-24">
           <h1 className="mb-4 text-7xl animate-bounceInLeft">
@@ -194,5 +196,6 @@ export default function CharactersPage() {
 
       <BackToTop />
     </div>
+    </PagesLoader>
   );
 }
