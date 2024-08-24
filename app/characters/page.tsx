@@ -6,7 +6,7 @@ import { Character } from "../types/Character";
 import CharacterCard from "../components/CharacterCard";
 import CharacterFilters from "../components/CharacterFilters";
 import Footer from "../components/Footer";
-import Image from "next/image";
+import CharacterModal from "../components/CharacterModal";
 
 export default function HomePageClient() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -153,32 +153,11 @@ export default function HomePageClient() {
       </div>
       <Footer />
 
-      {/* Modal */}
       {selectedCharacter && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 ">
-          <div className="bg-[#8B9D77] text-black p-6 rounded-lg relative">
-            <button
-              onClick={closeModal}
-              className="absolute top-1 right-2 text-red-700 text-5xl"
-            >
-              ×
-            </button>
-            <h1 className="text-4xl font-semibold text-center mb-4">{selectedCharacter.name}</h1>
-            <Image
-              src={selectedCharacter.image}
-              alt={selectedCharacter.name}
-              width={400}
-              height={400}
-              className="object-cover mb-4 mx-auto"
-            />
-            <p className="text-3xl"><strong>Status:</strong> {selectedCharacter.status}</p>
-            <p className="text-3xl"><strong>Species:</strong> {selectedCharacter.species}</p>
-            <p className="text-3xl"><strong>Gender:</strong> {selectedCharacter.gender}</p>
-            <p className="text-3xl"><strong>Origin:</strong> {selectedCharacter.origin.name}</p>
-            <p className="text-3xl"><strong>Location:</strong> {selectedCharacter.location.name}</p>
-            <p className="text-3xl"><strong>Episodes:</strong> {selectedCharacter.episode.length}</p>
-          </div>
-        </div>
+        <CharacterModal 
+        character={selectedCharacter} 
+        onClose={closeModal} 
+      />
       )}
     </div>
   );
