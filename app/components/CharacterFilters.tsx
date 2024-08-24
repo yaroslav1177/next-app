@@ -24,7 +24,7 @@ export default function CharacterFilters({
   resetFilters,
 }: CharacterFiltersProps) {
   return (
-    <div>
+    <div className="animate-bounceInLeft">
       <input
         type="text"
         placeholder="Search characters..."

@@ -12,7 +12,7 @@ export default function NavBar() {
           Rick & Morty Universe
         </Link>
         <div>
-          <div className="text-black flex items-center gap-5 text-[20px] md:text-[22px] lg:text-[32px]">
+          <div className="text-black flex items-center gap-5 text-[20px] md:text-[22px] lg:text-[32px] ">
             <Link href="/characters" className={`transition-transform duration-300 ease-in-out transform ${
               pathname === '/characters' ? 'text-[#EDC5AB]' : 'hover:rotate-12 hover:text-[#EDC5AB]'
             }`}>

@@ -19,6 +19,7 @@ export default function HomePageClient() {
   const [genderFilter, setGenderFilter] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
 
   const loadCharacters = async (page: number, append: boolean = false) => {
     setIsLoading(true);
@@ -73,11 +74,33 @@ export default function HomePageClient() {
     setSelectedCharacter(null);
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setVisibleCards((prev) => [
+            ...prev,
+            parseInt(entry.target.getAttribute('data-id') || '0'),
+          ]);
+        }
+      });
+    }, {
+      threshold: 0.1,
+    });
+
+    const elements = document.querySelectorAll('.character-card');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, [characters]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <div className="container mx-auto p-4 pt-[100px] flex-grow">
         <div className="mx-24">
-          <h1 className="mb-4 text-7xl">Rick and Morty Characters</h1>
+          <h1 className="mb-4 text-7xl animate-bounceInLeft">Rick and Morty Characters</h1>
 
           <CharacterFilters
             searchTerm={searchTerm}
@@ -99,15 +122,20 @@ export default function HomePageClient() {
         </div>
 
         <div className="mx-24">
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-10 md:gap-x-6 gap-y-8"> */}
           <div className="grid justify-items-center gap-y-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {characters && characters.length > 0 ? (
               characters.map((char: Character) => (
-                <CharacterCard
-                  key={char.id}
-                  character={char}
-                  onViewDetails={() => setSelectedCharacter(char)}
-                />
+                <div
+                key={char.id}
+                className={`character-card animate__animated ${
+                  visibleCards.includes(char.id) ? 'animate__animated animate__pulse' : ''
+                }`}
+                data-id={char.id}
+              ><CharacterCard
+              character={char}
+              onViewDetails={() => setSelectedCharacter(char)}
+            /></div>
+
               ))
             ) : (
               <div className="text-center text-lg">No search results found</div>
