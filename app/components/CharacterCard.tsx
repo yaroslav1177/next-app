@@ -9,7 +9,7 @@ interface CharacterCardProps {
 export default function CharacterCard({ character, onViewDetails }: CharacterCardProps) {
   return (
     <div
-      className="border-4 border-[#37745B] p-0 pb-4 rounded-[25px] bg-[#8B9D77] text-black flex flex-col justify-between"
+      className="border-4 border-[#37745B] p-0 pb-4 rounded-[25px] bg-[#8B9D77] text-black flex flex-col justify-between transform transition-transform duration-300 hover:scale-105"
       style={{ width: "300px" }}
     >
       <div className="relative">

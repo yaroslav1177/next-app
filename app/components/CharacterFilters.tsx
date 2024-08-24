@@ -35,7 +35,7 @@ export default function CharacterFilters({
         }}
       />
 
-      <div className="mb-4 flex space-x-4">
+      <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:space-x-4">
         <select
           onChange={(e) => setStatusFilter(e.target.value || null)}
           className="p-2 border border-gray-300 rounded text-black placeholder:text-slate-400 focus:border-inherit bg-[#EDC5AB] focus:outline-none focus:ring focus:ring-violet-300 text-3xl cursor-pointer"

@@ -99,7 +99,8 @@ export default function HomePageClient() {
         </div>
 
         <div className="mx-24">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-10 md:gap-x-6 gap-y-8"> */}
+          <div className="grid justify-items-center gap-y-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {characters && characters.length > 0 ? (
               characters.map((char: Character) => (
                 <CharacterCard

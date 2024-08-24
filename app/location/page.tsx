@@ -63,7 +63,7 @@ export default function Location() {
           <InputGroup name="Location" changeID={setNumber} total={126} />
         </div>
         <div className="mx-24">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
+          <div className="grid justify-items-center gap-y-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {results.length > 0 ? (
               results.map((character) => (
                 <CharacterCard key={character.id} character={character} onViewDetails={() => setSelectedCharacter(character)}/>
