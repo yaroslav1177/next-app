@@ -53,7 +53,7 @@ export default function Location() {
           <h4 className="text-center mb-4 text-3xl">Pick Location</h4>
           <InputGroup name="Location" changeID={setNumber} total={126} />
         </div>
-        <div className="mx-20">
+        <div className="mx-24">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
             {results.length > 0 ? (
               results.map((character) => (

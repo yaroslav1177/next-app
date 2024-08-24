@@ -46,7 +46,7 @@ export default function Episode() {
           <h4 className="text-center mb-4 text-3xl">Pick Episode</h4>
           <InputGroup name="Episode" changeID={setID} total={51} />
         </div>
-        <div className="mx-20">
+        <div className="mx-24">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
             {results.map((character) => (
               <CharacterCard key={character.id} character={character} />
