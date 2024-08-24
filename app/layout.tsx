@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar"; // Импортируем NavBar
 
 // const inter = Inter({ subsets: ["latin"] });
 import { Jersey_10 } from "next/font/google";
+import ClientLoader from "./ClientLayout";
 
 const jersey10 = Jersey_10({
   weight: ["400",], // Укажи нужные веса
@@ -32,8 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={jersey10.className}>
-        <NavBar />
-        <div>{children}</div>
+        <ClientLoader>
+          <NavBar />
+          <div>{children}</div>
+        </ClientLoader>
       </body>
     </html>
   );
