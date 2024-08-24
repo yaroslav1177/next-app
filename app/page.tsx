@@ -1,5 +1,11 @@
+import NavBar from "./components/NavBar";
 import Home from "./pages/HomePage";
 
-export default function HomePage() {
-  return <Home />;
+export default async function HomePage() {
+
+  return (
+    <>
+      <Home />
+    </>
+  );
 }

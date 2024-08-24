@@ -1,11 +1,12 @@
+import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar"; // Импортируем NavBar
 
+// const inter = Inter({ subsets: ["latin"] });
 import { Jersey_10 } from "next/font/google";
-import ReduxProvider from "./ReduxProvider";
 
 const jersey10 = Jersey_10({
-  weight: ["400",],
+  weight: ["400",], // Укажи нужные веса
   subsets: ["latin"],
 });
 
@@ -31,10 +32,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={jersey10.className}>
-        <ReduxProvider>
-          <NavBar />
-          <div>{children}</div>
-        </ReduxProvider>
+        <NavBar />
+        <div>{children}</div>
       </body>
     </html>
   );
