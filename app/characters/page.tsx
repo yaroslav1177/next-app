@@ -1,4 +1,5 @@
 "use client";
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { fetchCharacters } from "../lib/api";
@@ -22,6 +23,19 @@ export default function CharactersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  const updateSearchParams = () => {
+    const params = new URLSearchParams();
+    if (searchTerm) params.set('search', searchTerm);
+    if (statusFilter) params.set('status', statusFilter);
+    if (speciesFilter) params.set('species', speciesFilter);
+    if (genderFilter) params.set('gender', genderFilter);
+    params.set("page", String(currentPage));
+    router.push(`?${params.toString()}`, undefined);
+  };
 
   const loadCharacters = async (page: number, append: boolean = false) => {
     setIsLoading(true);
@@ -48,6 +62,7 @@ export default function CharactersPage() {
 
   useEffect(() => {
     loadCharacters(1);
+    updateSearchParams();
   }, [searchTerm, statusFilter, speciesFilter, genderFilter]);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
@@ -97,7 +112,7 @@ export default function CharactersPage() {
       elements.forEach((el) => observer.unobserve(el));
     };
   }, [characters]);
-
+  
   return (
     <PagesLoader >
           <div className="flex flex-col min-h-screen">

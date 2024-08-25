@@ -1,4 +1,5 @@
 "use client";
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 import { InputGroup } from "../components/InputGroup";
 import CharacterCard from "../components/CharacterCard";
@@ -28,10 +29,24 @@ export default function Episode() {
   
   const api = `https://rickandmortyapi.com/api/episode/${id}`;
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const updateSearchParams = () => {
+      const params = new URLSearchParams();
+      if (name) params.set('episode', name);
+      router.push(`?${params.toString()}`, undefined);
+    };
+    
+    updateSearchParams();
+  }, [name]); 
+
   useEffect(() => {
     (async function () {
       const data = await fetch(api).then((res) => res.json());
       setInfo(data);
+      // updateSearchParams();
 
       const characterData = await Promise.all(
         data.characters.map((x: string) => {

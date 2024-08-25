@@ -1,4 +1,5 @@
 "use client";
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 import { InputGroup } from "../components/InputGroup";
 import CharacterCard from "../components/CharacterCard";
@@ -25,6 +26,20 @@ export default function Location() {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
 
   const api = `https://rickandmortyapi.com/api/location/${number}`;
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const updateSearchParams = () => {
+      const params = new URLSearchParams();
+      if (name) params.set('location', name);
+      router.push(`?${params.toString()}`, undefined);
+    };
+    
+    updateSearchParams();
+  }, [name]); 
+
 
   useEffect(() => {
     (async function () {
