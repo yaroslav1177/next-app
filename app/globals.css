@@ -162,20 +162,17 @@ a {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  /* background-color: rgba(255, 255, 255, 0.8); Прозрачный фон для лоадера */
   color: white;
   background-image: url('../public/loader-bg.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-/* globals.css */
 .loader {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  /* background-color: red; Прозрачный фон для лоадера */
   animation: rotateAnimation 0.6s infinite linear;
 }
 
@@ -194,5 +191,36 @@ a {
 
 .content-visible {
   opacity: 1;
-  transition: opacity 0.5s ease-in-out; /* Плавная анимация появления */
+  transition: opacity 0.8s ease-in-out; /* Плавная анимация появления */
 }
+
+@keyframes borderAnimation {
+  0% {
+    border-color: #37745B;
+    border-width: 8px;
+  }
+  25% {
+    border-color: #8B9D77;
+    border-width: 8px;
+  }
+  50% {
+    border-color: #EDC5AB;
+    border-width: 8px;
+  }
+  75% {
+    border-color: #37745B;
+    border-width: 8px;
+  }
+  100% {
+    border-color: #37745B;
+    border-width: 8px;
+  }
+}
+
+.dynamic-border {
+  border: 8px solid #37745B;
+  border-radius: 25px;
+  background-color: #8B9D77;
+  animation: borderAnimation 4s linear infinite;
+}
+

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import NextIcon from "../../public/next.svg";
 import Image from "next/image";
 
@@ -40,6 +41,12 @@ export default function Footer() {
               className="block mt-0"
             />
           </a>
+        </div>
+        <div>
+          <Link href="/about" className=" flex flex-col mt-2">
+            <p className="m-0 p-0 hover:text-[#EDC5AB]">About</p>
+            <p className="text-4xl text-center">me</p>
+          </Link>
         </div>
       </div>
     </div>
