@@ -187,3 +187,12 @@ a {
       transform: rotate(360deg);
   }
 }
+
+.content-hidden {
+  opacity: 0;
+}
+
+.content-visible {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out; /* Плавная анимация появления */
+}

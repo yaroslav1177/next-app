@@ -25,7 +25,7 @@ export default function Episode() {
     null
   );
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
-
+  
   const api = `https://rickandmortyapi.com/api/episode/${id}`;
 
   useEffect(() => {
@@ -72,58 +72,57 @@ export default function Episode() {
   }, [results]);
 
   return (
-    <PagesLoader >
-          <div className="flex flex-col min-h-screen">
-      <div className="container mx-auto p-4 pt-[100px] flex-grow">
-        <div className="mb-3">
-          <h1 className="text-center mb-3 text-7xl animate__animated animate__rollIn">
-            Episode name :{" "}
-            <span className="text-primary">
-              {name === "" ? "Unknown" : name}
-            </span>
-          </h1>
-          <h5 className="text-center text-4xl animate__animated animate__rollIn">
-            Air Date: {air_date === "" ? "Unknown" : air_date}
-          </h5>
-        </div>
-        <div className="">
-          <div className="flex flex-col items-center mb-4">
-            <h4 className="text-center mb-4 text-3xl animate__animated animate__rollIn">
-              Pick Episode
-            </h4>
-            <InputGroup name="Episode" changeID={setID} total={51} />
+    <PagesLoader>
+      <div className="flex flex-col min-h-screen">
+        <div className="container mx-auto p-4 pt-[100px] flex-grow">
+          <div className="mb-3">
+            <h1 className="text-center mb-3 text-7xl animate__animated animate__rollIn">
+              Episode name :{" "}
+              <span className="text-primary">
+                {name === "" ? "Unknown" : name}
+              </span>
+            </h1>
+            <h5 className="text-center text-4xl animate__animated animate__rollIn">
+              Air Date: {air_date === "" ? "Unknown" : air_date}
+            </h5>
           </div>
-          <div className="mx-24">
-            <div className="grid justify-items-center gap-y-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-              {results.map((character) => (
-                <div
-                  key={character.id}
-                  className={`character-card animate__animated ${
-                    visibleCards.includes(character.id)
-                      ? "animate__animated animate__pulse"
-                      : ""
-                  }`}
-                  data-id={character.id}
-                >
-                  {" "}
-                  <CharacterCard
-                    character={character}
-                    onViewDetails={() => setSelectedCharacter(character)}
-                  />
-                </div>
-              ))}
+          <div className="">
+            <div className="flex flex-col items-center mb-4">
+              <h4 className="text-center mb-4 text-3xl animate__animated animate__rollIn">
+                Pick Episode
+              </h4>
+              <InputGroup name="Episode" changeID={setID} total={51} />
+            </div>
+            <div className="mx-24">
+              <div className="grid justify-items-center gap-y-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                {results.map((character) => (
+                  <div
+                    key={character.id}
+                    className={`character-card animate__animated ${
+                      visibleCards.includes(character.id)
+                        ? "animate__animated animate__pulse"
+                        : ""
+                    }`}
+                    data-id={character.id}
+                  >
+                    <CharacterCard
+                      character={character}
+                      onViewDetails={() => setSelectedCharacter(character)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
 
-      {selectedCharacter && (
-        <CharacterModal character={selectedCharacter} onClose={closeModal} />
-      )}
-      
-      <BackToTop />
-    </div>
+        {selectedCharacter && (
+          <CharacterModal character={selectedCharacter} onClose={closeModal} />
+        )}
+
+        <BackToTop />
+      </div>
     </PagesLoader>
   );
 }

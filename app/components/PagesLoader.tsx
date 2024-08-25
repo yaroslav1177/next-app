@@ -1,24 +1,32 @@
-// components/ClientLoader.tsx
-"use client"; // Указывает, что этот файл является клиентским
+"use client";
 
 import React, { useEffect, useState } from 'react';
-// import Loader from './Loader'; // Проверьте путь к Loader
 import AnotherLoader from './AnotherLoader';
 
 const PagesLoader = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
+  const [contentVisible, setContentVisible] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500); // Задержка 2 секунды
+      setTimeout(() => {
+        setContentVisible(true);
+      }, 50); // Небольшая задержка перед показом контента
+    }, 500); // Задержка 0.5 секунды
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      {loading ? <AnotherLoader /> : <>{children}</>}
+      {loading ? (
+        <AnotherLoader />
+      ) : (
+        <div className={contentVisible ? "content-visible" : "content-hidden"}>
+          {children}
+        </div>
+      )}
     </>
   );
 };
