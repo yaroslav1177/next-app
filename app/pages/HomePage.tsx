@@ -3,7 +3,7 @@ import PagesLoader from "../components/PagesLoader";
 
 export default function Home() {
   return (
-    <PagesLoader >
+    // <PagesLoader >
           <div className="homePage flex flex-col items-center justify-center min-h-screen">
       <p
         className="text-center uppercase text-[40px] md:text-[80px] font-bold pl-3 animate-rotateIn"
@@ -43,6 +43,6 @@ export default function Home() {
         view all characters
       </Link>
     </div>
-    </PagesLoader>
+    // </PagesLoader>
   );
 }

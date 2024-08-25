@@ -175,5 +175,15 @@ a {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: red; /* Прозрачный фон для лоадера */
+  /* background-color: red; Прозрачный фон для лоадера */
+  animation: rotateAnimation 0.6s infinite linear;
+}
+
+@keyframes rotateAnimation {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
 }
