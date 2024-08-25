@@ -1,4 +1,3 @@
-
 export async function fetchCharacters(
   page: number = 1,
   searchTerm: string = "",

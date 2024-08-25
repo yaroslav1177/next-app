@@ -139,8 +139,6 @@ a {
   padding: 8px 16px;
   border: 1px solid #ddd;
   text-decoration: none;
-  /* color: #007bff; */
-  
 }
 
 .active .page-link {
@@ -191,7 +189,7 @@ a {
 
 .content-visible {
   opacity: 1;
-  transition: opacity 0.8s ease-in-out; /* Плавная анимация появления */
+  transition: opacity 0.8s ease-in-out;
 }
 
 @keyframes borderAnimation {

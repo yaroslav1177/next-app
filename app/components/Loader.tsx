@@ -1,7 +1,6 @@
-// components/LottieLoader.tsx
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from '../../public/Animation.json'; // Замените путь на ваш JSON-файл
+import animationData from '../../public/Animation.json';
 
 const LottieLoader = () => {
   const defaultOptions = {

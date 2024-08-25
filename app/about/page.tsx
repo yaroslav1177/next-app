@@ -8,7 +8,6 @@ export default function About() {
           <div className="flex items-center justify-center pt-[100px]">
         <div className="flex flex-col">
           <h2 className="text-center text-5xl text-black animate__animated animate__bounceInDown">Yarik (J-2099)</h2>
-          {/* <Image src="/cartoonMe.jpg" alt="" width={300} height={600} className="rounded-2xl animate__animated animate__flipInY"></Image> */}
           <Image src="/me.jpg" alt="" width={300} height={600} className="rounded-2xl animate__animated animate__flipInY"></Image>
           <div>
             <div className="flex gap-2 items-center animate__animated animate__bounceInLeft">
@@ -32,9 +31,6 @@ export default function About() {
               <p className="text-2xl font-medium">Planet Squanch</p>
             </div>
             <div className="flex gap-2 items-center animate__animated animate__bounceInRight">
-              {/* <Link href="https://www.linkedin.com/in/yaroslav-avramidi-781146323/" target="_blank" className="mt-3 flex items-center justify-center">
-              <Image src='/linkedin-logo.png' alt="linkedIn logo" width={100} height={100} ></Image>
-              </Link> */}
               <p className="text-black text-2xl font-semibold">Link to my</p>
               <Link href="https://www.linkedin.com/in/yaroslav-avramidi-781146323/" target="_blank" className="text-2xl font-medium hover:text-[#EDC5AB]">LinkedIn Profile</Link>
             </div>

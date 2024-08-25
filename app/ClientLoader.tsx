@@ -1,5 +1,4 @@
-// components/ClientLoader.tsx
-"use client"; // Указывает, что этот файл является клиентским
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import LottieLoader from './components/Loader';
@@ -10,7 +9,7 @@ const ClientLoader = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // Задержка 2 секунды
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

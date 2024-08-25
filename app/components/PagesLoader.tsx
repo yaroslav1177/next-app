@@ -12,9 +12,8 @@ const PagesLoader = ({ children }: { children: React.ReactNode }) => {
       setLoading(false);
       setTimeout(() => {
         setContentVisible(true);
-      }, 50); // Небольшая задержка перед показом контента
-    }, 500); // Задержка 0.5 секунды
-
+      }, 50);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 

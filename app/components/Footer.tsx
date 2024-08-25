@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="flex items-start pl-28 sm:pl-0 md:items-center md:items-center flex-col sm:flex-row gap-6 justify-between w-[500px] mx-auto text-black text-2xl">
         <div className="flex flex-col">
           <a href="https://nextjs.org/" target="_blank">
-            <p>Created on</p>
+            <p className="hover:text-[#EDC5AB]">Created on</p>
             <Image
               src="/next.svg"
               alt="next logo"
@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
         <div>
           <a href="https://vercel.com/home" target="_blank">
-            <p>Deployed on</p>
+            <p className="hover:text-[#EDC5AB]">Deployed on</p>
             <Image
               src="/vercel.svg"
               alt="next logo"
@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
         <div>
           <a href="https://github.com/yaroslav1177/next-app" target="_blank">
-            <p>GitHub Repo</p>{" "}
+            <p className="hover:text-[#EDC5AB]">GitHub Repo</p>{" "}
             <Image
               src="/github.png"
               alt="next logo"
@@ -42,10 +42,10 @@ export default function Footer() {
             />
           </a>
         </div>
-        <div>
+        <div className=" hover:text-[#EDC5AB]">
           <Link href="/about" className=" flex flex-col mt-2">
-            <p className="m-0 p-0 hover:text-[#EDC5AB]">About</p>
-            <p className="text-4xl text-center">me</p>
+            <p className="m-0 p-0">About</p>
+            <p className="text-3xl text-center">me</p>
           </Link>
         </div>
       </div>

@@ -6,7 +6,7 @@ import CharacterCard from "../components/CharacterCard";
 import { Character } from "../types/Character";
 import Footer from "../components/Footer";
 import CharacterModal from "../components/CharacterModal";
-import BackToTop from "../components/BackToTop"; // Импортируйте компонент
+import BackToTop from "../components/BackToTop";
 import PagesLoader from "../components/PagesLoader";
 
 export default function Location() {

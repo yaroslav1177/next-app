@@ -46,7 +46,6 @@ export default function Episode() {
     (async function () {
       const data = await fetch(api).then((res) => res.json());
       setInfo(data);
-      // updateSearchParams();
 
       const characterData = await Promise.all(
         data.characters.map((x: string) => {

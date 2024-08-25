@@ -1,13 +1,12 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "./components/NavBar"; // Импортируем NavBar
+import NavBar from "./components/NavBar";
 
-// const inter = Inter({ subsets: ["latin"] });
 import { Jersey_10 } from "next/font/google";
 import ClientLoader from "./ClientLoader";
 
 const jersey10 = Jersey_10({
-  weight: ["400",], // Укажи нужные веса
+  weight: ["400",],
   subsets: ["latin"],
 });
 
